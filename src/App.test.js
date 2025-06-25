@@ -1,18 +1,29 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { act } from 'react'; 
 import App from './App';
 
-test('renders portfolio header', () => {
-  render(<App />);
-  expect(screen.getByText(/My Portfolio/i)).toBeInTheDocument();
+test('renders portfolio header', async () => {
+  await act(async () => {
+    render(<App />);
+  });
+
+  expect(await screen.findByText(/My Portfolio/i)).toBeInTheDocument();
 });
 
-test('sends contact form', async () => {
-  render(<App />);
+test('contact form sends message', async () => {
+  await act(async () => {
+    render(<App />);
+  });
+
   const emailInput = await screen.findByPlaceholderText('Your Email');
-  const msgInput = await screen.findByPlaceholderText('Your Message');
+  const messageInput = await screen.findByPlaceholderText('Your Message');
+
   fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-  fireEvent.change(msgInput, { target: { value: 'Hello!' } });
-  fireEvent.click(screen.getByText(/Send/i));
-  expect(await screen.findByText(/Message sent!/i)).toBeInTheDocument();
+  fireEvent.change(messageInput, { target: { value: 'Hello there!' } });
+
+  fireEvent.click(screen.getByText('Send'));
+
+
+  expect(await screen.findByText(/Message sent/i)).toBeInTheDocument();
 });
