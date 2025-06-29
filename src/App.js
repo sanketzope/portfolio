@@ -13,7 +13,7 @@ function App() {
       
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
         <div className="container">
-          <a className="navbar-brand" href="#">My Portfolio</a>
+          <a className="navbar-brand" href="#about">My Portfolio</a>
           <button
             className="navbar-toggler"
             type="button"
